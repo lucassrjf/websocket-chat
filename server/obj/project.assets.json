@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\chat\\websocket-chat\\server\\Chat with Websocket\\WebsocketServer\\WebsocketServer.csproj",
-      "projectName": "WebsocketServer",
-      "projectPath": "C:\\chat\\websocket-chat\\server\\Chat with Websocket\\WebsocketServer\\WebsocketServer.csproj",
+      "projectUniqueName": "C:\\chat\\websocket-chat\\server\\server.csproj",
+      "projectName": "server",
+      "projectPath": "C:\\chat\\websocket-chat\\server\\server.csproj",
       "packagesPath": "C:\\Users\\SONY\\.nuget\\packages\\",
-      "outputPath": "C:\\chat\\websocket-chat\\server\\Chat with Websocket\\WebsocketServer\\obj\\",
+      "outputPath": "C:\\chat\\websocket-chat\\server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SONY\\AppData\\Roaming\\NuGet\\NuGet.Config",

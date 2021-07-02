@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebsocketServer
+namespace server
 {
     class Program
     {
