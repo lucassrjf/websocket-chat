@@ -1,0 +1,12 @@
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\bin\Debug\netcoreapp3.1\WebsocketServer.exe
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\bin\Debug\netcoreapp3.1\WebsocketServer.deps.json
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\bin\Debug\netcoreapp3.1\WebsocketServer.runtimeconfig.json
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\bin\Debug\netcoreapp3.1\WebsocketServer.runtimeconfig.dev.json
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\bin\Debug\netcoreapp3.1\WebsocketServer.dll
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\bin\Debug\netcoreapp3.1\WebsocketServer.pdb
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\obj\Debug\netcoreapp3.1\WebsocketServer.AssemblyInfoInputs.cache
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\obj\Debug\netcoreapp3.1\WebsocketServer.AssemblyInfo.cs
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\obj\Debug\netcoreapp3.1\WebsocketServer.csproj.CoreCompileInputs.cache
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\obj\Debug\netcoreapp3.1\WebsocketServer.dll
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\obj\Debug\netcoreapp3.1\WebsocketServer.pdb
+C:\chat\websocket-chat\server\Chat with Websocket\WebsocketServer\obj\Debug\netcoreapp3.1\WebsocketServer.genruntimeconfig.cache
