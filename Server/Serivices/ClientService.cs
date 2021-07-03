@@ -37,6 +37,15 @@ namespace Server.Serivices
             Clients.Add(new Client(webSocket));
         }
 
+        public List<string> GetAllUserNamesInRoom()
+        {
+            var listUsernames = Clients.Select(client => client.UserName).ToList();
+            //var listUsernames = from client in Clients
+            //              select client.ToString();
+
+            return listUsernames;
+        }
+
         public async Task RemoveSocket(string uuid)
         {
             
@@ -48,6 +57,16 @@ namespace Server.Serivices
                         statusDescription: "Closed by the Service",
                         cancellationToken: CancellationToken.None);
                          
+        }
+
+        public bool Login(string uuid, string userName)
+        {
+            var clientWithSameUserName = Clients.Where(client => client.UserName != null && client.UserName?.ToLower() == userName.ToLower()).FirstOrDefault();
+            
+            if (clientWithSameUserName != null) { return false; }
+
+            Clients.FirstOrDefault(client => client.Uuid == uuid)?.Login(userName);
+            return true;
         }
 
         // TODO talvez tirar isso daqui

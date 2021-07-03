@@ -1,0 +1,64 @@
+import React, { useState } from "react";
+import { Container, Button, Form, Alert } from 'react-bootstrap';
+// const WebSocketService = require('../services/webSocketService');
+
+import { login } from '../services/webSocketService';
+
+
+
+function Login(props) {
+
+	const [userName, setUserName] = useState('');
+	const [loginError, setLoginError] = useState(false);
+
+	const onChangeUsername = (e) => {
+		setLoginError(false);
+		setUserName(e.target.value)
+	}
+
+	const handleClickLogin = () => {
+		// props.handleSocket(login(props.socket));
+		login(userName, props.handleChangeHistory);
+		props.handleIsLoggedIn(true);
+
+	}
+
+
+
+	return (
+		<>
+			<Container>
+				<h3>LOGIN</h3>
+				<Form>
+					<Form.Group controlId="formBasicEmail">
+						{/* <Form.Label>Login</Form.Label> */}
+						<Form.Control
+							type="text"
+							placeholder="Forneça o username"
+							value={userName}
+							onChange={(e) => onChangeUsername(e)} />
+						<Form.Text className="text-muted">
+							{loginError ? (
+								<Alert variant='danger'>
+									O username informado já está em utilização por outro usuário
+								</Alert>
+							) : (
+								<>Forneça um username para entrar</>
+							)}
+						</Form.Text>
+					</Form.Group>
+					<Button
+						variant="primary"
+						onClick={handleClickLogin}
+					>
+						Entrar
+					</Button>
+
+				</Form>
+
+			</Container>
+		</>
+	);
+}
+
+export default Login;

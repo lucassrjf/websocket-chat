@@ -10,8 +10,6 @@ namespace Server.Models
     {
         public string Uuid { get; set; }
         public string UserName { get; set; }
-        public string Email { get; set; }
-        public List<string> History { get; set; }
         public WebSocket WebSocket { get; set; }
 
         public Client(WebSocket webSocket)
@@ -20,10 +18,9 @@ namespace Server.Models
             WebSocket = webSocket;
         }
 
-        public void AllowChat(string username, string email)
+        public void Login(string username)
         {
             UserName = username;
-            Email = email;
         }
     }
 }
