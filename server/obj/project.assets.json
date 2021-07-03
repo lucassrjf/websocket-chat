@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\chat\\websocket-chat\\server\\server.csproj",
-      "projectName": "server",
-      "projectPath": "C:\\chat\\websocket-chat\\server\\server.csproj",
+      "projectUniqueName": "C:\\chat\\websocket-chat\\Server\\Server.csproj",
+      "projectName": "Server",
+      "projectPath": "C:\\chat\\websocket-chat\\Server\\Server.csproj",
       "packagesPath": "C:\\Users\\SONY\\.nuget\\packages\\",
-      "outputPath": "C:\\chat\\websocket-chat\\server\\obj\\",
+      "outputPath": "C:\\chat\\websocket-chat\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SONY\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -56,6 +56,9 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

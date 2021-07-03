@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XUthfX/w4PYSETRp2TN3MntTWnjh6XOLssTX1VKN18/RmjhaKKQm0YnOKhSPvg1eD/DdZQWjtuFZXdHUaSVXIw==",
+  "dgSpecHash": "fFiBmcSTXb7/Il6XH0mNFCZPKXM1nBR0skllyYwf4gJOsyl7rpGkaR8+S4Eh3/oAuUyC8QdOWItVSk6y6RFwzQ==",
   "success": true,
-  "projectFilePath": "C:\\chat\\websocket-chat\\server\\server.csproj",
+  "projectFilePath": "C:\\chat\\websocket-chat\\Server\\Server.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

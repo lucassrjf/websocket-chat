@@ -2,22 +2,29 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  
-   return (
+
+  let teste = () => {
+    let socket = new WebSocket("ws:/localhost:5000/server");
+    connect(socket);
+  }
+
+  function connect(socket) {
+    socket.onopen = function () {
+        console.log("About to send data");
+        socket.send("Hello World"); // I WANT TO SEND THIS MESSAGE TO THE SERVER!!!!!!
+        console.log("Message sent!");
+    };
+  }
+
+
+  return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={teste}>OLA MUNDO</button>
       </header>
     </div>
   );
