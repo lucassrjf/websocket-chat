@@ -55,7 +55,6 @@ Este projeto possui 2 partes, Client e Server
 - O roteiro de testes encontra-se no arquivo "client/views/test"
 
 ## Funcionalidades futuras
-- Tratativa de Registro de apelido não permitindo registrar um apelido já existente na sala
 - Melhoria nos testes
 - Criação de nova sala
 - Tratativa para corrigir exceção lançada ao realizar múltiplos refreshs na página
