@@ -45,8 +45,13 @@ namespace Server
             if (message.Action == "LOGIN")
             {
                 Client client = ClientService.GetBySocket(webSocket);
-                ClientService.Login(client.Uuid, message.UserName);
-                await SendLoginMessageForAll(webSocket, message);
+                if (ClientService.Login(client.Uuid, message.UserName))
+                {
+                    await SendLoginMessageForAll(webSocket, message);
+                } else
+                {
+                    await SendLoginMessageError(webSocket);
+                }
             }
 
             if (message.Action == "MESSAGE")
@@ -100,16 +105,19 @@ namespace Server
         private async Task SendLogoutMessageForAll(WebSocket webSocket)
         {
             var clients = ClientService.GetAllInSpecificRoom("#general");
+            clients = clients.Where(client => client.UserName != "").ToList();
             var sender = ClientService.GetBySocket(webSocket);
             var messageText = $"{sender.UserName}: saiu da sala {sender.Room}";
             var usersInRoom = ClientService.GetAllUserNamesInRoom();
             usersInRoom.Remove(sender.UserName);
-
-            var responseMessage = new ResponseMessage(messageText, usersInRoom);
-
-            foreach (var client in clients)
+            if (sender.UserName != null)
             {
-                await SendMessageAsync(client.WebSocket, JsonSerializer.Serialize(responseMessage));
+                var responseMessage = new ResponseMessage(messageText, usersInRoom);
+
+                foreach (var client in clients)
+                {
+                    await SendMessageAsync(client.WebSocket, JsonSerializer.Serialize(responseMessage));
+                }
             }
         }
 
@@ -174,6 +182,18 @@ namespace Server
 
             await SendMessageAsync(sender.WebSocket, JsonSerializer.Serialize(responseMessage));
             await SendMessageAsync(receiver.WebSocket, JsonSerializer.Serialize(responseMessage));
+        }
+
+
+        private async Task SendLoginMessageError(WebSocket webSocket)
+        {
+            var sender = ClientService.GetBySocket(webSocket);
+            var messageText = $"LOGIN_ERROR";
+            var usersInRoom = ClientService.GetAllUserNamesInRoom();
+
+            var responseMessage = new ResponseMessage(messageText, usersInRoom);
+
+            await SendMessageAsync(sender.WebSocket, JsonSerializer.Serialize(responseMessage));
         }
     }
 }

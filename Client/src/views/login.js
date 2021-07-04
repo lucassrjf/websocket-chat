@@ -6,20 +6,28 @@ import { login } from '../services/webSocketService';
 function Login(props) {
 
 	const [userName, setUserName] = useState('');
-	const [loginError, setLoginError] = useState(false);
 
 	const onChangeUsername = (e) => {
-		setLoginError(false);
+		props.setLoginError(false);
 		setUserName(e.target.value)
 	}
 
 	const handleClickLogin = () => {
-		console.log(props.clients)
+
 		if (!userName || userName === '' || props.clients.find(client => client === userName)) {
-			setLoginError(true);
+			props.setLoginError(true);
 		} else {
 			login(userName);
-			props.handleIsLoggedIn(true);
+			// Para o usuário não ter tempo de ver a tela de chat em caso de erro
+			setTimeout(() => {
+				props.handleIsLoggedIn(true);
+			}, 500);
+		}
+	}
+
+	const handleEnterPressed = (e) => {
+		if (e.key === 'Enter') {
+			handleClickLogin();
 		}
 	}
 
@@ -27,33 +35,30 @@ function Login(props) {
 		<>
 			<Container>
 				<h3>LOGIN</h3>
-				<Form>
-					<Form.Group controlId="formBasicEmail">
-						{/* <Form.Label>Login</Form.Label> */}
-						<Form.Control
-							type="text"
-							placeholder="Forneça o username"
-							value={userName}
-							onChange={(e) => onChangeUsername(e)} />
-						<Form.Text className="text-muted">
-							{loginError ? (
-								<Alert variant='danger'>
-									O username informado é inválido ou já está em utilização em outro usuário
-								</Alert>
-							) : (
-								<>Forneça um username para entrar</>
-							)}
-						</Form.Text>
-					</Form.Group>
-					<Button
-						variant="primary"
-						onClick={handleClickLogin}
-					>
-						Entrar
-					</Button>
-
-				</Form>
-
+				<Form.Group controlId="formBasicEmail">
+					<Form.Control
+						type="text"
+						placeholder="Forneça o username"
+						value={userName}
+						onKeyPress={(e) => handleEnterPressed(e)}
+						onChange={(e) => onChangeUsername(e)} />
+					<Form.Text className="text-muted">
+						{props.loginError ? (
+							<Alert variant='danger'>
+								O username informado é inválido ou já está em utilização em outro usuário
+							</Alert>
+						) : (
+							<>Forneça um username para entrar</>
+						)}
+					</Form.Text>
+				</Form.Group>
+				<Button
+					variant="primary"
+					onClick={handleClickLogin}
+					type="button"
+				>
+					Entrar
+				</Button>
 			</Container>
 		</>
 	);

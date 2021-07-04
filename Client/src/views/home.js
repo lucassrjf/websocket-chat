@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Button, Modal } from 'react-bootstrap';
 
 import Login from './login';
 import Chat from './chat';
 
-import { getSocket } from '../services/webSocketService';
+import { getSocket, logout } from '../services/webSocketService';
 
-function Home() {
+function Home(props) {
 
+  const params = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [history, setHistory] = useState("Sala #general");
   const [clients, setClients] = useState([]);
   const [showHelp, setShowHelp] = useState(false);
+	const [loginError, setLoginError] = useState(params.error);
 
   // Este componente controla o fluxo da tela, portanto ele tem que manipular
   // a instância global do socket
@@ -21,6 +24,11 @@ function Home() {
 
     socket.onmessage = e => {
       let responseJson = JSON.parse(e.data);
+
+			if (responseJson.MessageText === "LOGIN_ERROR") {
+        logout(true);
+				setLoginError(true)
+			}
 
       setHistory(history + "\n" + responseJson.MessageText);
       setClients(responseJson.UsersInRoom);
@@ -47,7 +55,7 @@ function Home() {
           <Chat history={history} clients={clients} />
         ) :
         (
-          <Login clients={clients} handleIsLoggedIn={handleIsLoggedIn} />
+          <Login clients={clients} handleIsLoggedIn={handleIsLoggedIn} loginError={loginError} setLoginError={setLoginError} />
         )
       }
 

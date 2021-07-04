@@ -20,6 +20,9 @@ function App() {
           <Route exact path="/test">
             <Test />
           </Route>
+          <Route exact path="/:error">
+            <Home />
+          </Route>
         </Switch>
       </div>
     </Router>

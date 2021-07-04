@@ -22,13 +22,18 @@ const login = (userName) => {
 	socket.onopen = () => {
 		socket.send(JSON.stringify(data));
 	};
-
 	socket.onopen(data);
 }
 
-const logout = () => {
+// Quando dá erro de login redireciona para a home com parametro de erro
+// Quando apenas faz login direciona para a Home sem o parâmetro de erro
+const logout = (error) => {
 	socket.close();
-	window.location = "/";
+	if (error) {
+		window.location = "/error:true";
+	} else {
+		window.location = "/";
+	}
 }
 
 const sendMessage = (message, messageTo, isPrivate) => {
