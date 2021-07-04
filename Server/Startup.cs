@@ -17,9 +17,9 @@ namespace Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Injeta o servico de websocket
             services.AddWebSocketService();
         }
 
@@ -35,18 +35,8 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
             app.UseWebSockets();
             app.MapWebSocketManager("/server", serviceProvider.GetService<CustomWebSocketHandler>());
-
-            //app.UseRouting();
-
-            //app.UseAuthorization();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
         }
     }
 }

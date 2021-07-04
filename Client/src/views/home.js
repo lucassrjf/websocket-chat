@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Login from './login';
 import Chat from './chat';
@@ -16,6 +15,8 @@ function Home() {
     setIsLoggedIn(value);
   }
 
+  // Este componente controla o fluxo da tela, portanto ele tem que manipular
+  // a instância global do socket
   useEffect(() => {
     
     let socket = getSocket();

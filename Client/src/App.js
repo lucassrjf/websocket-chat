@@ -4,7 +4,6 @@ import {
   Route,
 } from "react-router-dom";
 import Home from './views/home';
-import Login from './views/login';
 import Test from './views/test';
 
 import './App.css';

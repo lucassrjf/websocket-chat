@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Button, Form, Alert } from 'react-bootstrap';
-// const WebSocketService = require('../services/webSocketService');
 
 import { login } from '../services/webSocketService';
 

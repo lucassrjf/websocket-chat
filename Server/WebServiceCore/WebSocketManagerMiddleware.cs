@@ -21,19 +21,14 @@ namespace Server
 
         public async Task Invoke(HttpContext context)
         {
-            // If the request is not a WebSocket request, it just exits the middleware.
+            // Verifica se é uma requisição de websocket
             if (!context.WebSockets.IsWebSocketRequest) { return; }
 
-            // If it is a WebSockets request,
-            // then it accepts the connection and passes the socket to the OnConnected method from the WebSocketHandler.
             var socket = await context.WebSockets.AcceptWebSocketAsync();
 
-            // while the socket is in the Open state, it awaits for the receival of new data.
             await this._webSocketHandler.OnConnected(socket);
 
-            // When it receives the data, it decides wether to pass the context to the ReceiveAsync method of WebSocketHandler
-            // (that's why you need to pass an actual implementation of the abstract WebSocketHandler class)
-            // or to the OnDisconnected method (if the message type is Close).
+            // Controla o fluxo da requisição de acordo com o tipo da mensagem
             await Receive(socket, async (result, buffer) =>
             {
  
@@ -54,6 +49,12 @@ namespace Server
             });
         }
 
+        /// <summary>
+        /// Encapsula a lógica de conversão dos dados recebidos para uma forma mais simples de manipular
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="handleMessage"></param>
+        /// <returns></returns>
         private async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handleMessage)
         {
             const int BUFFER_LENGTG = 4096; // 4 * 1024;

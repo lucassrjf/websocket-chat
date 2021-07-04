@@ -6,6 +6,9 @@ using System.Text.Json;
 
 namespace Server.Models
 {
+    /// <summary>
+    /// Classe responsável pelo formato da mensagem recebida pelo FrontEnd
+    /// </summary>
     public class Message
     {
         public string UserName { get; set; }
@@ -14,9 +17,16 @@ namespace Server.Models
         public bool IsPrivate { get; set; }
         public string MessageText { get; set; }
 
-        // Construtor default pois a deserialização demanda este construtor
+        /// <summary>
+        /// Construtor default pois a deserialização demanda este construtor
+        /// </summary>
         public Message() : base() { }
 
+        /// <summary>
+        /// Recebe uma string contendo um objeto serializado e cria um objeto
+        /// Mensagem a partir dela
+        /// </summary>
+        /// <param name="jsonString"></param>
         public Message(string jsonString)
         {
             var message = JsonSerializer.Deserialize<Message>(jsonString);
@@ -26,7 +36,5 @@ namespace Server.Models
             IsPrivate = message.IsPrivate;
             MessageText = message.MessageText;
         }
-
-
     }
 }

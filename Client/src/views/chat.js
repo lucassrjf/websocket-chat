@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Col, Button, Form } from 'react-bootstrap';
 
 import { sendMessage, logout } from '../services/webSocketService';
 
@@ -31,6 +31,7 @@ function Chat(props) {
 
 	const handleEnterPressed = (e) => {
 		if (e.key === 'Enter') {
+			sendMessage(message, messageTo, privateMessage);
 			setMessage("");
 		}
 	}
@@ -41,6 +42,7 @@ function Chat(props) {
 
 	const handleClickSend = () => {
 		sendMessage(message, messageTo, privateMessage);
+		setMessage("");
 	}
 
 	const handleClickLogout = () => {

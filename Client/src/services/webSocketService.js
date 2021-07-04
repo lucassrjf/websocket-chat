@@ -1,9 +1,12 @@
+// Instância global da aplicação
 const socket = new WebSocket("ws:/localhost:5000/server");
 
 const getSocket = () => {
 	return socket;
 }
 
+// Utilizada para criar mais de uma instância na mesma aplicação
+// Utilizada nos casos de teste
 const getNewSocket = () => {
 	return new WebSocket("ws:/localhost:5000/server");;
 }
@@ -29,10 +32,10 @@ const logout = () => {
 }
 
 const sendMessage = (message, messageTo, isPrivate) => {
-
+	
 	let data = {
 		"Action": "MESSAGE",
-		"MessageTo": (messageTo === "0" ? "ALL" : messageTo),
+		"MessageTo": messageTo,
 		"IsPrivate": isPrivate,
 		"MessageText": message
 	}

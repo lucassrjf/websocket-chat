@@ -12,14 +12,15 @@ namespace Server
 {
     public static class WebSocketManagerExtensions
     {
+        /// <summary>
+        /// Realiza a injeção de dependencia dos serviço de cliente e cria um Singleton dos clientes logados
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddWebSocketService(this IServiceCollection services)
         {
-            // Besides from adding the WebSocketConnectionManager service,
             services.AddTransient<ClientService>();
 
-            // it also searches the executing assembly for types that inherit WebSocketHandler
-            // and it registers them as singleton using reflection.
-            // so that every request gets the same instance of the message handler, it's important!
             foreach (var type in Assembly.GetEntryAssembly().ExportedTypes)
             {
                 if (type.GetTypeInfo().BaseType == typeof(WebSocketHandler))
@@ -29,9 +30,7 @@ namespace Server
             }
             return services;
         }
-
-        // It receives a path and it maps that path using with the WebSocketManagerMiddleware which is passed the specific implementation
-        // of WebSocketHandler you provided as argument for the MapWebSocketManager extension method.
+        
         public static IApplicationBuilder MapWebSocketManager(this IApplicationBuilder app, PathString path, WebSocketHandler handler)
         {
             return app.Map(path, (_app) => {

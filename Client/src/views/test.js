@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 
 import { getNewSocket } from '../services/webSocketService';
 
-var socketA = getNewSocket();
-var socketB = getNewSocket();
-var socketC = getNewSocket();
-
 function Test() {
+
+	var socketA = getNewSocket();
+	var socketB = getNewSocket();
+	var socketC = getNewSocket();
 
 	// Sempre deixa os sockets preparados para receber uma mensagem
 	useEffect(() => {
@@ -119,7 +119,7 @@ function Test() {
 			<Container>
 				<Row>TESTES</Row>
 				<Row><small>Visualize os testes no console do navegador</small></Row>
-				<Row><Button onClick={startTests}>Iniciar</Button></Row>				
+				<Row><Button onClick={startTests}>Iniciar</Button></Row>
 			</Container>
 		</>
 	);

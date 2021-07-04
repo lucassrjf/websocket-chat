@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /// <summary>
+    /// Classe responsável por implementar os métodos do servidor aplicando as regras de negócio específicas
+    /// </summary>
     public class CustomWebSocketHandler : WebSocketHandler
     {
-
         public CustomWebSocketHandler(ClientService clientService) : base(clientService) { }
 
         public override async Task OnConnected(WebSocket socket)
@@ -27,6 +29,14 @@ namespace Server
             await base.OnDisconnected(webSocket);
         }
 
+        /// <summary>
+        /// Responsável pelo encaminhamento da mensagem para as regras específicas de acordo com
+        /// a ação e os destinatários da mensagem
+        /// </summary>
+        /// <param name="webSocket"></param>
+        /// <param name="result"></param>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
         public override async Task ReceiveAsync(WebSocket webSocket, WebSocketReceiveResult result, byte[] buffer)
         {
             string jsonString = Encoding.UTF8.GetString(buffer, 0, result.Count);
@@ -59,6 +69,13 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Envia mensagem informando a entrada de novo cliente à sala
+        /// Envia para todos os clientes da sala
+        /// </summary>
+        /// <param name="webSocket"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private async Task SendLoginMessageForAll(WebSocket webSocket, Message message)
         {
             var clients = ClientService.GetAllInSpecificRoom("#general");
@@ -74,6 +91,12 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Envia mensagem informando a saída de cliente da sala
+        /// Envia para todos os clientes da sala
+        /// </summary>
+        /// <param name="webSocket"></param>
+        /// <returns></returns>
         private async Task SendLogoutMessageForAll(WebSocket webSocket)
         {
             var clients = ClientService.GetAllInSpecificRoom("#general");
@@ -90,6 +113,12 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Envia mensagem para todos da sala
+        /// </summary>
+        /// <param name="webSocket"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private async Task SendMessageTextForAll(WebSocket webSocket, Message message)
         {
             var clients = ClientService.GetAllInSpecificRoom("#general");
@@ -105,6 +134,12 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Enviar uma mensagem para todos da sala, porém informando uma menção
+        /// </summary>
+        /// <param name="webSocket"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private async Task SendMessageTextForAllWithMention(WebSocket webSocket, Message message)
         {
             var clients = ClientService.GetAllInSpecificRoom("#general");
@@ -121,6 +156,13 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Envia uma mensagem privada para determinado cliente
+        /// O remetente e o destinatário recebem esta mensagem
+        /// </summary>
+        /// <param name="webSocket"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private async Task SendPrivateMessageText(WebSocket webSocket, Message message)
         {
             var sender = ClientService.GetBySocket(webSocket);
