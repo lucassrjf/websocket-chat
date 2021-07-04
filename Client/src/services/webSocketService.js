@@ -4,6 +4,10 @@ const getSocket = () => {
 	return socket;
 }
 
+const getNewSocket = () => {
+	return new WebSocket("ws:/localhost:5000/server");;
+}
+
 const login = (userName) => {
 
 	let data = {
@@ -36,6 +40,6 @@ const sendMessage = (message, messageTo, isPrivate) => {
 	socket.send(JSON.stringify(data));
 }
 
-export { getSocket, login, logout, sendMessage };
+export { getSocket, getNewSocket, login, logout, sendMessage };
 
 
