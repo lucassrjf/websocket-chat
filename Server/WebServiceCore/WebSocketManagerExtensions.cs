@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Server.Serivices;
+using Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
