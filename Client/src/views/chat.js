@@ -8,7 +8,7 @@ function Chat(props) {
 	const [message, setMessage] = useState("");
 	const [messageTo, setMessageTo] = useState("0");
 	const [privateMessage, setPrivateMessage] = useState(false);
-	const [privateMessageHidden, setPrivateMessageHidden] = useState(messageTo !== "0");
+	const [privateMessageHidden, setPrivateMessageHidden] = useState(true);
 	const [history, setHistory] = useState();
 	const [clients, setClients] = useState();
 
