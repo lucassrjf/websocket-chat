@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 
-import { sendMessage } from '../services/webSocketService';
+import { sendMessage, logout } from '../services/webSocketService';
 
 function Chat(props) {
 
@@ -10,15 +10,19 @@ function Chat(props) {
 	const [privateMessage, setPrivateMessage] = useState(false);
 	const [privateMessageHidden, setPrivateMessageHidden] = useState(messageTo !== "0");
 	const [history, setHistory] = useState();
+	const [clients, setClients] = useState();
 
 	useEffect(() => {
 		setHistory(props.history);
-		console.log("CHAT")
-	  }, [history]);
+	}, [history]);
+
+	useEffect(() => {
+		setClients(props.clients);
+	}, [clients]);
 
 	const handleChangeMessageTo = (e) => {
 		setMessageTo(e.target.value);
-		setPrivateMessageHidden(messageTo !== "0");
+		setPrivateMessageHidden(e.target.value === "0");
 	}
 
 	const handleChangeMessage = (e) => {
@@ -26,7 +30,6 @@ function Chat(props) {
 	}
 
 	const handleEnterPressed = (e) => {
-
 		if (e.key === 'Enter') {
 			setMessage("");
 		}
@@ -38,8 +41,10 @@ function Chat(props) {
 
 	const handleClickSend = () => {
 		sendMessage(message, messageTo, privateMessage);
-		// setHistory(props.history)
-		console.log("CHAT_CLICK: " + props.history)
+	}
+
+	const handleClickLogout = () => {
+		logout();
 	}
 
 	return (
@@ -48,7 +53,6 @@ function Chat(props) {
 				<h3>CHAT</h3>
 
 				<Form.Group controlId="formMessages"  >
-					{/* <Form.Label>Example textarea</Form.Label> */}
 					<Form.Control
 						as="textarea"
 						rows={20}
@@ -78,10 +82,11 @@ function Chat(props) {
 							className="mr-sm-2"
 							id="inlineFormCustomSelect"
 							custom
-							onChange={handleChangeMessageTo}
+							onChange={(e) => handleChangeMessageTo(e)}
 						>
 							<option value="0">Todos</option>
-							<option value="1">Teste</option>
+							{(props.clients || []).map((client, index) => <option key={index} value={client}>{client}</option>)}
+
 						</Form.Control>
 					</Col>
 
@@ -106,6 +111,13 @@ function Chat(props) {
 					}
 
 				</Form.Row>
+					<Button
+						variant="secondary"
+						onClick={handleClickLogout}
+						type="button"
+					>
+						Sair
+					</Button>
 
 			</Container>
 		</>

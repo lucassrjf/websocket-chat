@@ -17,6 +17,11 @@ namespace Server.Serivices
             return Clients;
         }
 
+        public List<Client> GetAllInSpecificRoom(string room)
+        {
+            return Clients.Where(client => client.Room == room).ToList();
+        }
+
         public Client GetBySocket(WebSocket webSocket)
         {
             return Clients.Where(client => client?.WebSocket == webSocket)?.FirstOrDefault();
@@ -39,9 +44,7 @@ namespace Server.Serivices
 
         public List<string> GetAllUserNamesInRoom()
         {
-            var listUsernames = Clients.Select(client => client.UserName).ToList();
-            //var listUsernames = from client in Clients
-            //              select client.ToString();
+            var listUsernames = Clients.Where(client => !String.IsNullOrEmpty(client.UserName)).Select(client => client.UserName).ToList();
 
             return listUsernames;
         }

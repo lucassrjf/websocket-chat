@@ -4,8 +4,6 @@ import { Container, Button, Form, Alert } from 'react-bootstrap';
 
 import { login } from '../services/webSocketService';
 
-
-
 function Login(props) {
 
 	const [userName, setUserName] = useState('');
@@ -17,13 +15,14 @@ function Login(props) {
 	}
 
 	const handleClickLogin = () => {
-		// props.handleSocket(login(props.socket));
-		login(userName, props.handleChangeHistory);
-		props.handleIsLoggedIn(true);
-
+		console.log(props.clients)
+		if (!userName || userName === '' || props.clients.find(client => client === userName)) {
+			setLoginError(true);
+		} else {
+			login(userName);
+			props.handleIsLoggedIn(true);
+		}
 	}
-
-
 
 	return (
 		<>
@@ -40,7 +39,7 @@ function Login(props) {
 						<Form.Text className="text-muted">
 							{loginError ? (
 								<Alert variant='danger'>
-									O username informado já está em utilização por outro usuário
+									O username informado é inválido ou já está em utilização em outro usuário
 								</Alert>
 							) : (
 								<>Forneça um username para entrar</>

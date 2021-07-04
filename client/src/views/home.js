@@ -6,26 +6,14 @@ import Chat from './chat';
 
 import { getSocket } from '../services/webSocketService';
 
-// const socket = getNewSocket();
-
-// const handleSocket = (newSocket) => {
-//   socket = newSocket;
-// }
-
-// var history = "Bem vindo";
-
 function Home() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [history, setHistory] = useState("OLA");
+  const [history, setHistory] = useState("Sala #general");
+  const [clients, setClients] = useState([]);
 
   const handleIsLoggedIn = (value) => {
     setIsLoggedIn(value);
-  }
-
-  const handleChangeHistory = (data) => {
-    // let newHistory = history + data;
-    // setHistory(data);
   }
 
   useEffect(() => {
@@ -33,11 +21,10 @@ function Home() {
     let socket = getSocket();
 
     socket.onmessage = e => {
-      // let newHistory = history + "\n" + e.data;
-      // handleChangeHistory(newHistory);
-      console.log("History: " + history)
-      console.log("e.data: " + e.data)
-      setHistory(history + "\n" + e.data);
+      let responseJson = JSON.parse(e.data);
+
+      setHistory(history + "\n" + responseJson.MessageText);
+      setClients(responseJson.UsersInRoom);
     };
   }, [history]);
 
@@ -45,21 +32,12 @@ function Home() {
     <>
       {isLoggedIn ?
         (
-          <Chat history={history} handleChangeHistory={handleChangeHistory} />
+          <Chat history={history} clients={clients} />
         ) :
         (
-          <Login handleIsLoggedIn={handleIsLoggedIn} handleChangeHistory={handleChangeHistory} />
+          <Login clients={clients} handleIsLoggedIn={handleIsLoggedIn} />
         )
       }
-
-
-      {/* <Container>
-        <Row>O que deseja fazer?</Row>
-        <Row>
-          <Col><Button variant="primary" onClick={() => handleClick('login')}>Entrar no chat</Button></Col>
-          <Col><Button variant="secondary" onClick={() => handleClick('test')}>Testar</Button></Col>
-        </Row>
-      </Container> */}
     </>
   );
 }

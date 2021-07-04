@@ -4,7 +4,7 @@ const getSocket = () => {
 	return socket;
 }
 
-const login = (userName, handleChangeHistory) => {
+const login = (userName) => {
 
 	let data = {
 		"Action": "LOGIN",
@@ -17,15 +17,11 @@ const login = (userName, handleChangeHistory) => {
 	};
 
 	socket.onopen(data);
-
-	// socket.onmessage = (event) => {
-	// 	let newHistory = history + e.data;
-    //   	handleChangeHistory(newHistory);
-	// };
 }
 
 const logout = () => {
 	socket.close();
+	window.location = "/";
 }
 
 const sendMessage = (message, messageTo, isPrivate) => {

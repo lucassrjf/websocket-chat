@@ -10,6 +10,7 @@ namespace Server.Models
     {
         public string Uuid { get; set; }
         public string UserName { get; set; }
+        public string Room { get; set; }
         public WebSocket WebSocket { get; set; }
 
         public Client(WebSocket webSocket)
@@ -21,6 +22,7 @@ namespace Server.Models
         public void Login(string username)
         {
             UserName = username;
+            Room = "#general";
         }
     }
 }
